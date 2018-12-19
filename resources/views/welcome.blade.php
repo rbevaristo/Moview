@@ -8,8 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/basic.css') }}" />
     <style type="text/css">
         .dropzone {
             border:2px dashed #999999;
@@ -18,19 +18,22 @@
         .dropzone .dz-default.dz-message {
             height: 171px;
             background-size: 132px 132px;
-            margin-top: -101.5px;
+            margin-top: 0;
             background-position-x:center;
 
         }
         .dropzone .dz-default.dz-message span {
             display: block;
-            margin-top: 145px;
+            margin-top: 150px;
             font-size: 20px;
             text-align: center;
         }
     </style>
 </head>
 <body>
+        <?php 
+        // dd(phpinfo())
+        ?>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -44,12 +47,21 @@
         </div>
         <hr>
     </div>
+    
+    <hr>
+    <div class="container">
+        @foreach(\App\Movie::all() as $movie)
+        <video width="400" src="{{ $movie->filename }}" type='video/x-matroska; codecs="theora, vorbis"' autoplay controls
+        onerror="failed(event)"></video>
+        @endforeach
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
     <script type="text/javascript">
     $(document).ready(function () {
         $('#file_upload').dropzone({

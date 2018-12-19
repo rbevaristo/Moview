@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Movie;
 use Illuminate\Http\Request;
+use App\Http\Resources\MovieCollection;
 
 class MovieController extends Controller
 {
@@ -14,7 +15,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['data' => MovieCollection::collection(Movie::all())]);
     }
 
     /**
@@ -35,9 +36,24 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json([
-            'data' => $request->all()
-        ]);
+        if($request->hasFile('file')){
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $fileNameToStore = 'movie'.(Movie::all()->count()+1).'.'.$extension;
+
+            $movie = new Movie;
+            $movie->name = $filename;
+            $movie->filename = $fileNameToStore;
+            $movie->save();
+
+            if($movie) {
+                $path = $request->file('file')->storeAs('public/movies', $fileNameToStore);
+                return response()->json(['data' => $movie]);
+            }
+        }
+
+        return response()->json(['data' => 'Error']);
     }
 
     /**

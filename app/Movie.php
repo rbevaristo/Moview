@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
-    protected $fillable = ['filename'];
+    protected $fillable = ['name','filename'];
+
+    public function getFilenameAttribute()
+    {
+        return url('/') . 'storage/movies/' . $this->filename;
+    }
 }
