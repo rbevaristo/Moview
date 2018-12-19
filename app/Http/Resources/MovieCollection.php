@@ -15,7 +15,7 @@ class MovieCollection extends Resource
     public function toArray($request)
     {
         return [
-            'filename' => url('/') . 'storage/movies/' . $this->filename
+            'filename' => $this->filename
         ];
     }
 }

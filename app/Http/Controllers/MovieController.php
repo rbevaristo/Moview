@@ -43,7 +43,6 @@ class MovieController extends Controller
             $fileNameToStore = 'movie'.(Movie::all()->count()+1).'.'.$extension;
 
             $movie = new Movie;
-            $movie->name = $filename;
             $movie->filename = $fileNameToStore;
             $movie->save();
 

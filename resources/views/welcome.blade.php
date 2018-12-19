@@ -71,7 +71,7 @@
             thumbnail: false,
             createImageThumbnails: false,
             uploadMultiple: true,
-            acceptedFiles: ".mp4,.mkv,.avi,audio/*,image/*,application/zip,.zip,.rar,application/rar,.xlsm, .psd,.pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv",
+            acceptedFiles: ".mp4,.mkv,.avi,audio/*,image/*",
             init: function () {
             this.on("complete", function (file) {
                 this.removeFile(file);
